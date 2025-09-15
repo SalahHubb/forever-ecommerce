@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 
 const App = () => {
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto px-8 pt-8">
       <NavBar />
 
       <Routes>
