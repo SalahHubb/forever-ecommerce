@@ -1,10 +1,8 @@
-import React from "react";
-import { products } from "../assets/frontend_assets/assets";
-import { assets } from "../assets/frontend_assets/assets";
 import Hero from "../components/Hero";
 import LatestCollection from "../components/LatestCollection";
 import BestSellers from "../components/BestSellers";
 import Policies from "../components/Policies";
+import NewsLetter from "../components/NewsLetter";
 
 const Home = () => {
   return (
@@ -13,6 +11,7 @@ const Home = () => {
       <LatestCollection />
       <BestSellers />
       <Policies />
+      <NewsLetter />
     </div>
   );
 };
