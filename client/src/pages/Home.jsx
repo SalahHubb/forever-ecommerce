@@ -4,6 +4,7 @@ import { assets } from "../assets/frontend_assets/assets";
 import Hero from "../components/Hero";
 import LatestCollection from "../components/LatestCollection";
 import BestSellers from "../components/BestSellers";
+import Policies from "../components/Policies";
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
       <Hero />
       <LatestCollection />
       <BestSellers />
+      <Policies />
     </div>
   );
 };
