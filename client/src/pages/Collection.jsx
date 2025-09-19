@@ -11,14 +11,27 @@ const Collection = () => {
   const [showFilter, setShowFilter] = useState(false);
   const [categories, setCategories] = useState([]);
   const [types, setTypes] = useState([]);
+  const [sort, setSort] = useState(0);
 
   useEffect(() => {
     setCollections(products);
   }, []);
 
   useEffect(() => {
-    setCollections(filterCollections(products, categories, types));
-  }, [categories, types]);
+    let filteredCollection = filterCollections(products, categories, types);
+
+    if (sort == "1") {
+      // sort low to high
+      filteredCollection.sort((a, b) => a.price - b.price);
+    }
+
+    if (sort == "-1") {
+      // sort high to low
+      filteredCollection.sort((a, b) => b.price - a.price);
+    }
+
+    setCollections(filteredCollection);
+  }, [categories, types, sort]);
 
   const handleCategory = (e) => {
     const category = e.target.name;
@@ -122,10 +135,13 @@ const Collection = () => {
           <div className="flex justify-between my-2">
             <Title text1={"ALL"} text2={"COLLECTIONS"} />
             {/* options */}
-            <select name="" className="border-1 p-2 border-[#C8C8C8]">
-              <option value="">Sort by: Relevant</option>
-              <option value="">Sort by: High to Low</option>
-              <option value="">Sort by: Low to High</option>
+            <select
+              onChange={(e) => setSort(e.target.value)}
+              className="border-1 p-2 border-[#C8C8C8]"
+            >
+              <option value="0">Sort by: Relevant</option>
+              <option value="-1">Sort by: High to Low</option>
+              <option value="1">Sort by: Low to High</option>
             </select>
           </div>
 
