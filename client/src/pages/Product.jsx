@@ -5,18 +5,27 @@ import { useContext } from "react";
 import { assets } from "../assets/frontend_assets/assets";
 import Title from "../components/Title";
 import RelatedProducts from "../components/RelatedProducts";
+import { toast } from "react-toastify";
 
 const Product = () => {
   const { id } = useParams();
-  const { products, currency } = useContext(ShopContext);
+  const { products, currency, addItem } = useContext(ShopContext);
   const [productData, setProductData] = useState("");
   const [selectedImg, setSelectedImg] = useState(0);
-  const [selectedSize, setSelectedSize] = useState("");
+  const [size, setSize] = useState("");
 
   useEffect(() => {
     setProductData(products.find((product) => product._id === id));
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [id]);
+
+  const handleAddToCart = () => {
+    if (size) {
+      addItem(id, size);
+    } else {
+      toast.error("Please select a size!");
+    }
+  };
 
   return (
     <div>
@@ -71,16 +80,25 @@ const Product = () => {
             <p className="font-semibold mb-4">Select Size</p>
             {productData &&
               productData.sizes &&
-              productData.sizes.map((size) => {
+              productData.sizes.map((sizeItem) => {
                 return (
-                  <button className="py-2 px-4 bg-gray-100 mr-2" key={size}>
-                    {size}
+                  <button
+                    onClick={() => setSize(sizeItem)}
+                    className={`py-2 px-4 bg-gray-100 mr-2 hover:cursor-pointer ${
+                      sizeItem == size ? "border-1 border-black" : ""
+                    }`}
+                    key={sizeItem}
+                  >
+                    {sizeItem}
                   </button>
                 );
               })}
           </div>
 
-          <button className="bg-black text-white py-2 px-6 self-start">
+          <button
+            onClick={handleAddToCart}
+            className="bg-black text-white py-2 px-6 self-start"
+          >
             ADD TO CART
           </button>
 

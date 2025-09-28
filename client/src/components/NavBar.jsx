@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { assets } from "../assets/frontend_assets/assets.js";
 import { Link, NavLink } from "react-router-dom";
+import { ShopContext } from "../context/ShopContext.jsx";
 
 const NavBar = () => {
   const [visible, setVisible] = useState(false);
+  const { getCartItemsCount } = useContext(ShopContext);
 
   return (
     <>
@@ -51,7 +53,7 @@ const NavBar = () => {
                 className="w-[24px] h-[24px] hover:cursor-pointer"
               />
               <span className="absolute left-3 top-3 size-[18px] bg-black rounded-full text-white flex justify-center items-center text-[13px]">
-                2
+                {getCartItemsCount()}
               </span>
             </div>
           </div>
