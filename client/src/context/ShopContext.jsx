@@ -3,14 +3,12 @@ import { products } from "../assets/frontend_assets/assets";
 
 export const ShopContext = createContext(null);
 
-// cartItems [{id: {s: 1, lg: 3}}]
+// cartItems = {{id: {s: 1, lg: 3}}}
 
 export default function ShopContextProvider({ children }) {
   const [cartItems, setCartItems] = useState({});
 
   const addItem = (id, size) => {
-    // size should be selected
-
     let cpyCartItems = structuredClone(cartItems);
     const existing = cpyCartItems[id];
 
@@ -27,17 +25,17 @@ export default function ShopContextProvider({ children }) {
     setCartItems(cpyCartItems);
   };
 
-  // const updateItemSize = (id, size, count) => {
-  //   const cpyCartItems = structuredClone(cartItems);
-  //   cpyCartItems[id][size] = count;
-  //   setCartItems(cpyCartItems);
-  // };
+  const updateItemSize = (id, size, count) => {
+    const cpyCartItems = structuredClone(cartItems);
+    cpyCartItems[id][size] = count;
+    setCartItems(cpyCartItems);
+  };
 
-  // const deleteItem = (id, size) => {
-  //   const cpyCartItems = structuredClone(cartItems);
-  //   cpyCartItems[id][size] = 0;
-  //   setCartItems(cpyCartItems);
-  // };
+  const deleteItem = (id, size) => {
+    const cpyCartItems = structuredClone(cartItems);
+    delete cpyCartItems[id][size];
+    setCartItems(cpyCartItems);
+  };
 
   const getCartItemsCount = () => {
     let count = 0;
@@ -49,6 +47,20 @@ export default function ShopContextProvider({ children }) {
     }
 
     return count;
+  };
+
+  const getCartItemsTotal = () => {
+    let total = 0;
+
+    for (const id in cartItems) {
+      for (const size in cartItems[id]) {
+        total +=
+          cartItems[id][size] *
+          products.find((product) => product._id == id).price;
+      }
+    }
+
+    return total;
   };
 
   const currency = "$";
@@ -63,6 +75,7 @@ export default function ShopContextProvider({ children }) {
     deleteItem,
     updateItemSize,
     getCartItemsCount,
+    getCartItemsTotal,
   };
 
   useEffect(() => {
