@@ -152,7 +152,7 @@ const Collection = () => {
               collections.map((item) => {
                 return (
                   <ProductItem
-                    id={item.id}
+                    id={item._id}
                     name={item.name}
                     price={item.price}
                     image={item.image[0]}
