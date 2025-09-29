@@ -19,6 +19,10 @@ const Product = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [id]);
 
+  useEffect(() => {
+    setSize("");
+  }, [productData]);
+
   const handleAddToCart = () => {
     if (size) {
       addItem(id, size);
