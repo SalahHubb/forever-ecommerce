@@ -4,6 +4,7 @@ import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
 import Collection from "./pages/Collection";
 import About from "./pages/About";
+import Login from "./pages/Login";
 import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
 import Product from "./pages/Product";
@@ -28,6 +29,7 @@ const App = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/place-order" element={<PlaceOrder />} />
         <Route path="/orders" element={<Orders />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
 
       <Footer />
