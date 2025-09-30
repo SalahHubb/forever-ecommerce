@@ -43,11 +43,13 @@ const NavBar = () => {
               alt="search-icon"
               className="w-[24px] h-[24px] hover:cursor-pointer"
             />
-            <img
-              src={assets.profile_icon}
-              alt="profile-icon"
-              className="w-[24px] h-[24px] hover:cursor-pointer"
-            />
+            <Link to={"/login"}>
+              <img
+                src={assets.profile_icon}
+                alt="profile-icon"
+                className="w-[24px] h-[24px] hover:cursor-pointer"
+              />
+            </Link>
             <div className="relative" onClick={() => navigate("/cart")}>
               <img
                 src={assets.cart_icon}
