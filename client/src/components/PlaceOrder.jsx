@@ -2,12 +2,23 @@ import React, { useState } from "react";
 import Title from "./Title";
 import { assets } from "../assets/frontend_assets/assets";
 import CartTotals from "./CartTotals";
+import { useNavigate } from "react-router-dom";
 
 const PlaceOrder = () => {
   const [payment, setPayment] = useState("cod");
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    navigate("/orders");
+  };
 
   return (
-    <form className="flex flex-col space-y-8 md:space-y-0 md:flex-row md:justify-between md:gap-17 border-t pt-4 md:pt-8">
+    <form
+      onClick={handleSubmit}
+      className="flex flex-col space-y-8 md:space-y-0 md:flex-row md:justify-between md:gap-17 border-t pt-4 md:pt-8"
+    >
       <div className="w-full md:max-w-[40%]">
         <Title text1={"DELIVERY"} text2={"INFORMATION"} />
 
