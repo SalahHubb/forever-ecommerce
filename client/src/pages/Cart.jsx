@@ -3,12 +3,14 @@ import { ShopContext } from "../context/ShopContext";
 import Title from "../components/Title";
 import { assets } from "../assets/frontend_assets/assets";
 import CartTotals from "../components/CartTotals";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const { products, cartItems, currency, updateItemSize, deleteItem } =
     useContext(ShopContext);
   const [items, setItems] = useState([]);
   // items = [{product, size, quantity}]
+  const navigate = useNavigate();
 
   useEffect(() => {
     let newItems = [];
@@ -83,8 +85,17 @@ const Cart = () => {
         })
       )}
 
-      <div className="mt-10 flex justify-end">
+      <div className="mt-10 flex flex-col gap-2 items-end">
         <CartTotals />
+
+        <div className="flex justify-end">
+          <button
+            className="bg-black text-white py-2 px-4 mt-4"
+            onClick={() => navigate("/place-order")}
+          >
+            PROCEED TO CHECKOUT
+          </button>
+        </div>
       </div>
     </div>
   );
