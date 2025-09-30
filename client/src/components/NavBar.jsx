@@ -2,10 +2,12 @@ import React, { useContext, useState } from "react";
 import { assets } from "../assets/frontend_assets/assets.js";
 import { Link, NavLink } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext.jsx";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
   const [visible, setVisible] = useState(false);
   const { getCartItemsCount } = useContext(ShopContext);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -46,7 +48,7 @@ const NavBar = () => {
               alt="profile-icon"
               className="w-[24px] h-[24px] hover:cursor-pointer"
             />
-            <div className="relative">
+            <div className="relative" onClick={() => navigate("/cart")}>
               <img
                 src={assets.cart_icon}
                 alt="cart-icon"
