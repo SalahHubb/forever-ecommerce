@@ -2,6 +2,7 @@ import User from "../models/userSchema.js";
 import bcrypt from "bcrypt";
 import validator from "validator";
 import jwt from "jsonwebtoken";
+import "dotenv/config";
 
 const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
@@ -33,8 +34,8 @@ const registerUser = async (req, res) => {
     password: hashedPassword,
   });
 
-  newUser.save();
-  const token = jwt.sign({ id: newUser._id }, "userSecretPrivateKey");
+  const user = await newUser.save();
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
 
   res.json({ success: true, token });
 };
@@ -62,8 +63,23 @@ const loginUser = async (req, res) => {
   res.json({ success: true, token });
 };
 
-const loginAdmin = (req, res) => {
-  res.json({ msg: "login admin" });
+const loginAdmin = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    if (
+      email === process.env.ADMIN_EMAIL &&
+      password === process.env.ADMIN_PASSWORD
+    ) {
+      const token = jwt.sign({ role: "admin" }, process.env.JWT_SECRET);
+      res.json({ success: true, token });
+    } else {
+      return res.json({ success: false, msg: "Invalid credentials" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, msg: e.message });
+  }
 };
 
 export { loginUser, registerUser, loginAdmin };
