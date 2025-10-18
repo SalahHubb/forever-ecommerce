@@ -13,6 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Cart from "./pages/Cart";
 import PlaceOrder from "./components/PlaceOrder";
 import Orders from "./components/Orders";
+import StripeVerification from "./pages/StripeVerfication";
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
         <Route path="/place-order" element={<PlaceOrder />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/verify" element={<StripeVerification />} />
       </Routes>
 
       <Footer />
