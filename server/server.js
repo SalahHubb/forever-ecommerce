@@ -4,6 +4,8 @@ import "dotenv/config";
 import connectDB from "./config/mongodb.js";
 import userRouter from "./routes/userRoute.js";
 import productRouter from "./routes/productRoute.js";
+import cartRouter from "./routes/cartRoute.js";
+import orderRouter from "./routes/orderRoute.js";
 
 // app config
 const app = express();
@@ -17,6 +19,8 @@ app.use(cors());
 // api end points
 app.use("/api/user", userRouter);
 app.use("/api/product", productRouter);
+app.use("/api/cart", cartRouter);
+app.use("/api/order", orderRouter);
 
 // initialize the server
 app.listen(PORT, () => {
