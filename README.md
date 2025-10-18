@@ -19,7 +19,7 @@ Built with ❤️ using **MongoDB, Express, React, Node.js, TailwindCSS, Stripe,
 ### 🛠️ Admin Panel
 
 - 🔑 Secure admin authentication
-- ➕ Add, edit, and delete products with images (via **Cloudinary**)
+- ➕ Add and delete products with images (via **Cloudinary**)
 - 📋 Manage orders and users
 - 📦 Update order statuses
 
@@ -35,3 +35,9 @@ Built with ❤️ using **MongoDB, Express, React, Node.js, TailwindCSS, Stripe,
 ---
 
 ## 🗂️ Folder Structure
+
+forever-ecommerce/
+
+- ├── admin/ # React-based admin dashboard
+- ├── client/ # React-based customer interface
+- └── server/ # Express + MongoDB backend API
