@@ -47,7 +47,7 @@ const NavBar = () => {
           </NavLink>
           <div
             className="border-1 border-gray-300
-           rounded-md p-1 mr-2 lg:px-2 lg:py-1"
+           rounded-md p-1 mr-2  lg:px-2 lg:py-1"
             onClick={navigateToAdminPanel}
           >
             Admin Panel
