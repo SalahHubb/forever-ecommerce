@@ -3,19 +3,35 @@ import { useParams } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import { useContext } from "react";
 import { assets } from "../assets/frontend_assets/assets";
-import Title from "../components/Title";
 import RelatedProducts from "../components/RelatedProducts";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const Product = () => {
   const { id } = useParams();
-  const { products, currency, addItem } = useContext(ShopContext);
-  const [productData, setProductData] = useState("");
+  const { backend_url, currency, addItem } = useContext(ShopContext);
+  const [productData, setProductData] = useState(null);
   const [selectedImg, setSelectedImg] = useState(0);
   const [size, setSize] = useState("");
 
+  const fetchProduct = async () => {
+    try {
+      const response = await axios.get(backend_url + "/api/product/single", {
+        params: { id },
+      });
+
+      if (response.data.success) {
+        setProductData(response.data.product);
+      } else {
+        toast.error(response.data.msg);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   useEffect(() => {
-    setProductData(products.find((product) => product._id === id));
+    fetchProduct();
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [id]);
 
@@ -31,6 +47,12 @@ const Product = () => {
     }
   };
 
+  if (!productData) {
+    return (
+      <div className="text-center py-20 text-gray-500">Loading product...</div>
+    );
+  }
+
   return (
     <div>
       <hr className="my-8" />
@@ -40,20 +62,23 @@ const Product = () => {
         <div className="flex flex-col-reverse md:flex-row gap-4 md:max-w-1/2">
           <div className="flex md:flex-col gap-4">
             {productData &&
-              productData.image &&
-              productData.image.map((img, idx) => {
+              productData.images &&
+              productData.images.map((img, idx) => {
                 return (
                   <img
                     src={img}
-                    className="size-22"
+                    className="size-14 md:size-22"
                     onClick={() => setSelectedImg(idx)}
+                    key={idx}
                   />
                 );
               })}
           </div>
           <img
             src={
-              productData && productData.image && productData.image[selectedImg]
+              productData &&
+              productData.images &&
+              productData.images[selectedImg]
             }
             className="w-full md:w-2/3"
           />
