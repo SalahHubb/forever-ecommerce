@@ -21,6 +21,7 @@ app.use(
       "https://forever-frontend-six-amber.vercel.app/", // frontend prod
       "https://forever-admin-one-smoky.vercel.app", // admin prod
     ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
