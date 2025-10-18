@@ -8,8 +8,9 @@ const BestSellers = () => {
   const [bestSellerProducts, setBestSellerProducts] = useState([]);
 
   useEffect(() => {
-    setBestSellerProducts(products.filter((item) => item.bestseller === true));
-  }, []);
+    setBestSellerProducts(products.filter((item) => item.bestSeller === true));
+  }, [products]);
+
   return (
     <div>
       {/* header */}
@@ -22,14 +23,14 @@ const BestSellers = () => {
       </div>
       {/* body */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-        {bestSellerProducts &&
+        {bestSellerProducts.length > 0 &&
           bestSellerProducts.map((item) => {
             return (
               <ProductItem
                 id={item._id}
                 name={item.name}
                 price={item.price}
-                image={item.image[0]}
+                image={item.images[0]}
               />
             );
           })}
