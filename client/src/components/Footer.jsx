@@ -4,10 +4,10 @@ import { assets } from "../assets/frontend_assets/assets";
 const Footer = () => {
   return (
     <footer className="mt-10">
-      <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row md:justify-between ">
+      <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row md:justify-between">
         <div>
           <img src={assets.logo} alt="" />
-          <p className="mt-4 text-gray-500 text-sm md:max-w-2/3">
+          <p className="mt-4 text-gray-500 text-sm md:max-w-[300px] lg:max-w-[450px]">
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
