@@ -16,6 +16,10 @@ connectDB();
 app.use(express.json());
 app.use(cors());
 
+app.get("/", (req, res) => {
+  res.send("Forever e-commerce api is working...");
+});
+
 // api end points
 app.use("/api/user", userRouter);
 app.use("/api/product", productRouter);
