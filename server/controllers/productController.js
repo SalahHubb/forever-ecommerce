@@ -7,7 +7,8 @@ const addProduct = async (req, res) => {
   const files = req.files;
 
   try {
-    if (!files) {
+    // check if files is missing or all arrays are empty
+    if (!files || Object.values(files).every((arr) => arr.length === 0)) {
       return res.json({ success: false, msg: "No image uploaded" });
     }
 
@@ -33,7 +34,7 @@ const addProduct = async (req, res) => {
     res.json({ success: true, msg: "product is added successfully" });
   } catch (error) {
     console.log(error);
-    res.json({ success: false, msg: e.message });
+    res.json({ success: false, msg: error.message });
   }
 };
 
@@ -50,7 +51,7 @@ const removeProduct = async (req, res) => {
 };
 
 const singleProduct = async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.query;
 
   try {
     const product = await Product.findById(id);
@@ -67,7 +68,7 @@ const listProduct = async (req, res) => {
     res.json({ success: true, products });
   } catch (error) {
     console.log(error);
-    res.json({ success: false, msg: "error occurred" + e.message });
+    res.json({ success: false, msg: e.message });
   }
 };
 
