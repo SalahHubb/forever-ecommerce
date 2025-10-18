@@ -15,7 +15,7 @@ const Collection = () => {
 
   useEffect(() => {
     setCollections(products);
-  }, []);
+  }, [products]);
 
   useEffect(() => {
     let filteredCollection = filterCollections(products, categories, types);
@@ -155,7 +155,7 @@ const Collection = () => {
                     id={item._id}
                     name={item.name}
                     price={item.price}
-                    image={item.image[0]}
+                    image={item.images[0]}
                   />
                 );
               })
