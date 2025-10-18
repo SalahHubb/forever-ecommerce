@@ -16,8 +16,8 @@ const adminAuth = async (req, res, next) => {
     }
 
     next();
-  } catch (error) {
-    console.log(error);
+  } catch (e) {
+    console.log(e);
     res.json({ success: false, msg: e.message });
   }
 };
