@@ -14,7 +14,12 @@ connectDB();
 
 // middlewares
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  })
+);
 
 app.get("/", (req, res) => {
   res.send("Forever e-commerce api is working...");
