@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { assets } from "../assets/frontend_assets/assets.js";
 import { Link, NavLink } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext.jsx";
@@ -6,18 +6,29 @@ import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
   const [visible, setVisible] = useState(false);
-  const { getCartItemsCount } = useContext(ShopContext);
+  const { getCartItemsCount, token, setToken } = useContext(ShopContext);
   const navigate = useNavigate();
+
+  const adminPanelUrl = import.meta.env.VITE_ADMIN_PANEL_URL;
+
+  const navigateToAdminPanel = () => {
+    window.open(adminPanelUrl, "_blank", "noopener,noreferrer");
+  };
+
+  const handleLogout = () => {
+    setToken("");
+    navigate("/login");
+  };
 
   return (
     <>
-      <nav className="flex justify-between items-center">
+      <nav className="flex justify-between items-center relative">
         <img
           src={assets.logo}
           alt="logo"
           className="w-[100px] md:w-[166px] md:h-[47px]"
         />
-        <ul className="hidden md:flex space-x-6">
+        <ul className="hidden md:flex md:items-center space-x-6">
           <NavLink to="/">
             <p className=" font-medium font-Outfit">HOME</p>
             <hr className="w-2/3 mx-auto hidden" />
@@ -34,6 +45,13 @@ const NavBar = () => {
             <p className=" font-medium font-Outfit">CONTACT</p>
             <hr className="w-2/3 mx-auto hidden" />
           </NavLink>
+          <div
+            className="border-1 border-gray-300
+           rounded-md p-1 mr-2 lg:px-2 lg:py-1"
+            onClick={navigateToAdminPanel}
+          >
+            Admin Panel
+          </div>
         </ul>
 
         <div className="flex">
@@ -43,13 +61,36 @@ const NavBar = () => {
               alt="search-icon"
               className="w-[24px] h-[24px] hover:cursor-pointer"
             />
-            <Link to={"/login"}>
-              <img
-                src={assets.profile_icon}
-                alt="profile-icon"
-                className="w-[24px] h-[24px] hover:cursor-pointer"
-              />
-            </Link>
+
+            <div className="group relative">
+              <div onClick={() => (token ? null : navigate("/login"))}>
+                <img
+                  src={assets.profile_icon}
+                  alt="profile-icon"
+                  className="w-[24px] h-[24px]"
+                />
+              </div>
+              {/* dropdown */}
+              {token ? (
+                <div className="hidden group-hover:block   absolute pt-6 right-0">
+                  <div className="bg-blue-100 w-[120px] p-4">
+                    <p className="cursor-pointer hover:underline">My profile</p>
+                    <p className="cursor-pointer hover:underline my-2">
+                      Orders
+                    </p>
+                    <p
+                      onClick={() => handleLogout()}
+                      className="cursor-pointer hover:underline"
+                    >
+                      Logout
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
+
             <div className="relative" onClick={() => navigate("/cart")}>
               <img
                 src={assets.cart_icon}
@@ -110,13 +151,16 @@ const NavBar = () => {
             >
               CONTACT
             </Link>
-            <Link
-              to={"/adminPanel"}
+
+            <div
+              onClick={() => {
+                setVisible(false);
+                navigateToAdminPanel;
+              }}
               className="text-lg cursor-pointer"
-              onClick={() => setVisible(false)}
             >
               ADMIN PANEL
-            </Link>
+            </div>
           </ul>
         </div>
       )}
