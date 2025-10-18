@@ -8,8 +8,8 @@ import { useNavigate } from "react-router-dom";
 const Cart = () => {
   const { products, cartItems, currency, updateItemSize, deleteItem } =
     useContext(ShopContext);
+
   const [items, setItems] = useState([]);
-  // items = [{product, size, quantity}]
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,6 +28,8 @@ const Cart = () => {
     setItems(newItems);
   }, [cartItems]);
 
+  console.log("items: ", items);
+
   return (
     <div className="border-t pt-8">
       <div className="mb-4">
@@ -45,7 +47,7 @@ const Cart = () => {
             >
               <div className="flex gap-4">
                 <img
-                  src={item.product.image[0]}
+                  src={item.product.images[0]}
                   className="w-18 h-22 object-cover"
                 />
                 <div className="flex flex-col gap-2">
