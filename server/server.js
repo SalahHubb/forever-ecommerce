@@ -33,6 +33,10 @@ app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
 
 // initialize the server
-app.listen(PORT, () => {
-  console.log("Server is running on port " + PORT);
-});
+if (process.env.NODE_ENV == "production") {
+  app.listen(PORT, () =>
+    console.log(`Forever e-commerce server is running on port ${PORT}`)
+  );
+}
+
+export default app;
