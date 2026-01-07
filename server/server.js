@@ -15,12 +15,7 @@ connectDB();
 // middlewares
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173", // frontend dev
-      "http://localhost:5174", // admin dev
-      "https://forever-frontend-six-amber.vercel.app/", // frontend prod
-      "https://forever-admin-one-smoky.vercel.app", // admin prod
-    ],
+    origin: [process.env.FRONTEND_URL, process.env.ADMIN_URL],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
